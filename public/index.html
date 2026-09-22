@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050505">
-<meta name="nexora-build" content="CINEMATIC-LUXURY-EDITORIAL-V3"><title>NEXORA — Cinematic Flagship</title>
+<meta name="nexora-build" content="NEXORA-LUXURY-UI-BACKGROUND-ONLY-V1"><title>NEXORA — Cinematic Flagship</title>
 <style>
 :root{--white:#f5f1e9;--muted:#aaa59b;--line:#ffffff1a;--gold:#d9b47b;--black:#050505}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#050505;color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;overflow-x:hidden}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
@@ -58,6 +58,17 @@ body{background:#080808}
 .toast{border-radius:0}
 @media(max-width:950px){.catalog{grid-template-columns:repeat(2,1fr)}.card:nth-child(n){grid-column:span 1}.card:nth-child(1) .photo,.card:nth-child(4) .photo,.card:nth-child(n+2) .photo{height:420px}}
 @media(max-width:600px){.nav{height:68px;padding:0 4vw}.navright .pill{padding:9px 11px}.reveal{padding:100px 5vw}.revealHead{margin-bottom:60px}.reveal h2{letter-spacing:-6px}.catalog{grid-template-columns:1fr}.card:nth-child(n){grid-column:span 1}.card:nth-child(1) .photo,.card:nth-child(4) .photo,.card:nth-child(n+2) .photo{height:390px}.black{padding:110px 5vw}.manifesto h2{letter-spacing:-7px}}
+</style><style id="nexora-background-only">
+/* Background-only mode: the 3D scene stays as atmosphere, not as navigation. */
+#webgl{position:fixed;inset:0;z-index:0;opacity:.58}
+.scrollspace{height:38vh;z-index:1;pointer-events:none}
+.hud,.centerPrompt,.sideLabel,.productsLayer,.introBadge{display:none!important}
+#world{height:38vh!important}
+.reveal,.black,.footer{position:relative;z-index:10}
+.reveal{margin-top:0}
+.reveal:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(244,240,231,.82),#f4f0e7 18%);pointer-events:none}
+.reveal>*{position:relative}
+.black{background:linear-gradient(180deg,#080808f2,#080808)}
 </style></style>
 </head>
 <body>
@@ -241,7 +252,7 @@ const side=new THREE.PointLight(0xb58a52,5,35);side.position.set(0,5,-35);scene.
 
 let progress=0,targetProgress=0,mouseX=0,mouseY=0;
 addEventListener('mousemove',e=>{mouseX=(e.clientX/innerWidth-.5)*2;mouseY=(e.clientY/innerHeight-.5)*2});
-addEventListener('scroll',()=>{const max=document.querySelector('.scrollspace').offsetHeight-innerHeight;targetProgress=Math.max(0,Math.min(1,scrollY/max))});
+addEventListener('scroll',()=>{targetProgress=0});
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
 
 const ray=new THREE.Raycaster(),mouse=new THREE.Vector2();
@@ -253,26 +264,14 @@ const hotspots=document.getElementById('hotspots');
 P.forEach(p=>{let h=document.createElement('div');h.className='hotspot';h.id='hot'+p.id;h.innerHTML='<button onclick="openProduct('+p.id+')">'+p.n.toUpperCase()+' · VIEW</button>';hotspots.appendChild(h)});
 
 function cinematic(){
- progress+=(targetProgress-progress)*.075;
- const p=progress;
- const z=5-(p*96);
- const x=Math.sin(p*Math.PI*2)*1.7;
- const y=2.25+Math.sin(p*Math.PI)*.35;
- camera.position.lerp(new THREE.Vector3(x+mouseX*.35,y-mouseY*.15,z),.1);
- camera.lookAt(new THREE.Vector3(x*.35,1.8,z-6));
- camera.rotation.z=Math.sin(p*Math.PI*2)*.012;
- side.position.z=-30-(p*35);side.intensity=4.5+Math.sin(p*Math.PI*4)*.8;
- ceilingLights.forEach((l,i)=>{l.intensity=2.1+Math.max(0,Math.sin(p*Math.PI*8+i*.7))*1.5});
-
- const s=Math.max(0,1-p*5);document.getElementById('prompt').style.opacity=s;
- document.getElementById('pct').textContent=String(Math.round(p*100)).padStart(2,'0');
- document.getElementById('bar').style.width=(p*100)+'%';
- const title=document.getElementById('heroTitle'),txt=document.getElementById('heroText');
- if(p<.16){title.textContent='STEP INSIDE.';txt.textContent='A commerce experience designed as a physical world. Scroll forward to walk through the flagship, discover objects and approach the products.'}
- else if(p<.38){title.textContent='FIND YOUR OBJECT.';txt.textContent='Move through the first gallery. Product displays are staged like real retail objects rather than flat cards.'}
- else if(p<.7){title.textContent='GET CLOSER.';txt.textContent='Each display is a destination. Hover or click a product object to open its details and add it to your bag.'}
- else {title.textContent='TAKE IT HOME.';txt.textContent='The visual journey ends where commerce begins: your real account, bag and Cloudflare-backed order flow.'}
- positions.forEach((pos,i)=>{const obj=products[i],v=obj.position.clone();v.project(camera);const h=document.getElementById('hot'+P[i].id);const visible=Math.abs(v.x)<.78&&Math.abs(v.y)<.72&&v.z<1&&v.z>-1;h.classList.toggle('show',visible&&p>.08&&p<.94);h.style.left=((v.x+1)/2*100)+'%';h.style.top=((-v.y+1)/2*100)+'%';});
+ progress+=(targetProgress-progress)*.04;
+ const p=0;
+ camera.position.lerp(new THREE.Vector3(0,2.45,4.5),.06);
+ camera.lookAt(new THREE.Vector3(0,2,-12));
+ camera.rotation.z=0;
+ side.position.z=-30;
+ side.intensity=4.2;
+ ceilingLights.forEach(l=>l.intensity=2.2);
 }
 function animate(){requestAnimationFrame(animate);cinematic();products.forEach((o,i)=>{
   const near=Math.abs(o.position.z-camera.position.z)<5.5;
