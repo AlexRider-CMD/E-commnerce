@@ -2,82 +2,166 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#08090b">
-<title>NEXORA — The Digital Flagship Store</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>NEXORA — Cinematic Flagship</title>
 <style>
-:root{--bg:#070809;--ink:#f6f3ec;--muted:#a9a59c;--line:#ffffff18;--glass:#ffffff0d;--gold:#d8b37a;--accent:#9d8cff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% -10%,#ffffff12,transparent 35%),linear-gradient(#0000 70%,#000 100%);z-index:5}button,input{font:inherit}button{cursor:pointer;border:0}a{color:inherit;text-decoration:none}.wrap{width:min(1400px,92%);margin:auto}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:76px;display:flex;align-items:center;padding:0 4%;background:linear-gradient(#050607dd,#05060755);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.logo{font-size:25px;font-weight:950;letter-spacing:-2px}.logo span{color:var(--gold)}.navlinks{display:flex;gap:28px;margin-left:55px;font-size:12px;font-weight:800}.navright{margin-left:auto;display:flex;gap:8px}.pill{padding:11px 15px;border:1px solid var(--line);background:#ffffff0a;color:#fff;border-radius:99px;font-size:11px;font-weight:850}.count{background:var(--gold);color:#08090b;border-radius:50%;padding:3px 6px;margin-left:4px}
-.journey{height:230vh;position:relative}.shopScene{position:sticky;top:0;height:100vh;overflow:hidden;background:#08090b;perspective:1300px}.sky{position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,#6b5c4822,transparent 38%),linear-gradient(180deg,#090a0c,#11100f 55%,#050505)}.ceiling{position:absolute;left:-10%;top:-25%;width:120%;height:65%;background:linear-gradient(#fff1,#fff0),repeating-linear-gradient(90deg,#ffffff08 0 1px,transparent 1px 180px);transform:rotateX(64deg);transform-origin:bottom;filter:blur(.2px)}.floor{position:absolute;left:-30%;width:160%;height:65%;bottom:-15%;background:radial-gradient(ellipse at center,#4b3d2b55,transparent 45%),repeating-linear-gradient(90deg,#ffffff09 0 1px,transparent 1px 120px),repeating-linear-gradient(0deg,#ffffff08 0 1px,transparent 1px 90px);transform:perspective(700px) rotateX(63deg);transform-origin:top;box-shadow:inset 0 80px 120px #000}.backWall{position:absolute;inset:17% 8% 18%;border:1px solid #ffffff16;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#ffffff07,#ffffff01),radial-gradient(circle at 50% 20%,#d8b37a12,transparent 45%);box-shadow:0 0 120px #000 inset}
-.enterSign{position:absolute;top:16%;left:50%;transform:translateX(-50%);font-size:clamp(30px,6vw,90px);letter-spacing:-5px;font-weight:950;white-space:nowrap;text-shadow:0 0 40px #d8b37a55}.enterSign small{display:block;text-align:center;font-size:10px;letter-spacing:5px;color:var(--gold);font-weight:800}.door{position:absolute;z-index:6;top:24%;bottom:18%;width:22%;background:linear-gradient(90deg,#121416,#303238 48%,#101112);box-shadow:0 20px 90px #000;transition:transform .08s linear}.door.left{left:28%;transform-origin:left}.door.right{right:28%;transform-origin:right}.door .handle{position:absolute;top:50%;width:6px;height:90px;border-radius:9px;background:linear-gradient(#eee,#777);box-shadow:0 0 20px #fff5}.door.left .handle{right:20px}.door.right .handle{left:20px}.camera{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .05s linear}.shopName{position:absolute;z-index:7;left:50%;bottom:20%;transform:translateX(-50%);text-align:center;transition:.2s}.shopName b{font-size:12px;letter-spacing:4px}.shopName p{font-size:10px;color:#aaa;margin:7px 0}.scrollHint{position:absolute;z-index:9;bottom:7%;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:3px;color:#bbb;animation:bounce 1.6s infinite}@keyframes bounce{50%{transform:translate(-50%,8px);opacity:.4}}
-.showroom{position:relative;margin-top:-1px;background:#f3f0e9;color:#111;padding:120px 0 140px;z-index:10}.showroom.dark{background:#0b0c0e;color:#fff}.intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:70px}.eyebrow{font-size:10px;letter-spacing:3px;color:#8d6c3f;font-weight:900}.intro h1{font-size:clamp(45px,7vw,105px);line-height:.82;letter-spacing:-7px;margin:15px 0}.intro p{max-width:560px;color:#777;font-size:15px;line-height:1.8}.stats{display:flex;gap:35px}.stats b{font-size:25px}.stats small{display:block;color:#888;margin-top:5px}
-.aisearch{margin:0 auto 90px;width:min(850px,92%);padding:10px;border:1px solid #1112;border-radius:20px;background:#fff;box-shadow:0 25px 80px #0001;display:flex}.aisearch input{flex:1;border:0;outline:0;padding:17px;background:transparent;font-size:15px}.aisearch button{padding:0 20px;border-radius:13px;background:#111;color:#fff;font-weight:850}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:#fff;border:1px solid #00010;border-radius:26px;overflow:hidden;position:relative;transition:.5s;box-shadow:0 15px 50px #0000000b}.card:hover{transform:translateY(-12px) scale(1.01);box-shadow:0 35px 80px #0002}.photo{height:340px;position:relative;overflow:hidden;background:#ddd}.photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92) contrast(1.03);transition:1s}.card:hover img{transform:scale(1.07)}.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,#0004)}.tag{position:absolute;z-index:2;top:14px;left:14px;padding:8px 10px;background:#ffffffe6;border-radius:99px;font-size:9px;font-weight:900;letter-spacing:1px}.heart{position:absolute;z-index:2;right:14px;top:14px;width:36px;height:36px;border-radius:50%;background:#ffffffe6}.info{padding:20px}.info h3{margin:5px 0;font-size:19px}.info p{font-size:11px;color:#777;line-height:1.5;min-height:33px}.price{font-weight:950;font-size:19px;margin-top:12px}.buy{width:100%;padding:12px;margin-top:13px;background:#111;color:#fff;border-radius:12px;font-size:11px;font-weight:900}.sectionTitle{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.sectionTitle h2{font-size:45px;letter-spacing:-3px;margin:7px 0}.muted{color:#777}
-.feature{padding:140px 0;background:#0a0b0d;color:#fff}.featureGrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.featureBig,.featureSmall{border:1px solid #fff12;border-radius:30px;overflow:hidden;position:relative;background:#15171a}.featureBig{min-height:620px;background:linear-gradient(135deg,#111317,#302a39)}.featureBig img{width:100%;height:100%;object-fit:cover;opacity:.75}.featureCopy{position:absolute;inset:auto 35px 35px}.featureCopy h2{font-size:60px;letter-spacing:-4px;margin:10px 0}.featureSmall{min-height:300px;padding:35px}.featureSmall h3{font-size:30px;letter-spacing:-2px}.featureSmall p{color:#999;line-height:1.6;font-size:13px}
-.overlay{position:fixed;inset:0;background:#0009;z-index:200;display:none}.overlay.show{display:block}.panel{position:absolute;right:0;top:0;height:100%;width:min(500px,94%);background:#f7f4ee;color:#111;padding:28px;overflow:auto}.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(620px,92%);max-height:90vh;overflow:auto;background:#f7f4ee;color:#111;border-radius:25px;padding:25px}.close{float:right;width:35px;height:35px;border-radius:50%;background:#111;color:#fff}.field{width:100%;padding:13px;margin:6px 0;border:1px solid #0002;border-radius:10px}.submit{width:100%;padding:13px;border-radius:11px;background:#111;color:#fff;font-weight:900;margin-top:7px}.line{padding:14px 0;border-bottom:1px solid #0002}.toast{position:fixed;z-index:300;bottom:25px;left:50%;transform:translate(-50%,30px);opacity:0;background:#111;color:#fff;padding:13px 18px;border-radius:12px;font-size:12px;transition:.3s}.toast.show{opacity:1;transform:translate(-50%,0)}
-footer{background:#070809;color:#fff;padding:80px 0;border-top:1px solid #fff14}.foot{display:flex;justify-content:space-between}.foot p{color:#777;font-size:11px}
-@media(max-width:950px){.navlinks{display:none}.intro,.featureGrid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.door.left{left:5%}.door.right{right:5%}.door{width:44%}.enterSign{font-size:45px}.featureBig{min-height:450px}}
-@media(max-width:560px){.nav{height:64px}.pill{padding:9px 11px}.journey{height:190vh}.showroom{padding-top:80px}.intro h1{font-size:55px;letter-spacing:-5px}.grid{grid-template-columns:1fr}.photo{height:310px}.sectionTitle h2{font-size:35px}.stats{gap:18px}.stats b{font-size:20px}.foot{display:block}.camera{transform:none!important}}
+:root{--white:#f5f1e9;--muted:#aaa59b;--line:#ffffff1a;--gold:#d9b47b;--black:#050505}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#050505;color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;overflow-x:hidden}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+#webgl{position:fixed;inset:0;z-index:0;background:#050505}
+#webgl canvas{display:block;width:100%;height:100%}
+.vignette{position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 28%,#0008 100%),linear-gradient(180deg,#0006,#0000 28%,#0000 70%,#0008)}
+.grain{position:fixed;inset:-50%;z-index:4;pointer-events:none;opacity:.075;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");animation:grain .18s steps(2) infinite}@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(2%,-1%)}50%{transform:translate(-1%,2%)}75%{transform:translate(1%,1%)}100%{transform:translate(-2%,-2%)}}
+.nav{position:fixed;top:0;left:0;right:0;height:76px;padding:0 4vw;z-index:20;display:flex;align-items:center;border-bottom:1px solid var(--line);background:linear-gradient(#050505d9,transparent);backdrop-filter:blur(12px)}.logo{font-size:25px;font-weight:950;letter-spacing:-2px}.logo i{font-style:normal;color:var(--gold)}.navlinks{display:flex;gap:30px;margin-left:55px;font-size:10px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase}.navright{margin-left:auto;display:flex;gap:8px}.pill{border:1px solid var(--line);background:#ffffff0b;color:#fff;border-radius:999px;padding:10px 15px;font-size:10px;font-weight:900}.pill:hover{background:#fff;color:#111}
+.scrollspace{height:760vh;position:relative;z-index:1}.hud{position:fixed;z-index:8;left:4vw;right:4vw;bottom:5vh;display:flex;justify-content:space-between;align-items:end;pointer-events:none}.caption{max-width:500px}.eyebrow{font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:950}.caption h1{font-size:clamp(42px,7vw,105px);line-height:.82;letter-spacing:-7px;margin:12px 0 15px}.caption p{font-size:12px;line-height:1.7;color:#b8b2a8;max-width:450px;margin:0}.progress{display:flex;align-items:center;gap:12px;color:#aaa;font-size:9px;letter-spacing:2px}.bar{width:120px;height:1px;background:#ffffff26;position:relative}.bar b{position:absolute;inset:0 auto 0 0;width:0;background:#fff}
+.centerPrompt{position:fixed;z-index:8;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;transition:.4s}.centerPrompt span{display:block;font-size:9px;letter-spacing:4px;color:#ddd}.centerPrompt strong{display:block;font-size:clamp(22px,3vw,45px);letter-spacing:-2px;margin-top:10px}
+.sideLabel{position:fixed;z-index:8;right:3vw;top:50%;writing-mode:vertical-rl;transform:rotate(180deg) translateY(50%);font-size:8px;letter-spacing:4px;color:#777;pointer-events:none}
+.productsLayer{position:fixed;inset:0;z-index:9;pointer-events:none}.hotspot{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;opacity:0;transition:opacity .25s,transform .25s}.hotspot.show{opacity:1}.hotspot button{border:1px solid #fff5;background:#080808d9;color:#fff;border-radius:999px;padding:9px 13px;font-size:9px;letter-spacing:1px;font-weight:900;backdrop-filter:blur(14px);box-shadow:0 10px 30px #0008}.hotspot button:hover{background:#fff;color:#111;transform:scale(1.04)}
+.reveal{position:relative;z-index:10;background:#f2eee6;color:#111;padding:130px 5vw}.revealHead{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:end;margin-bottom:75px}.reveal h2{font-size:clamp(50px,8vw,125px);line-height:.8;letter-spacing:-8px;margin:15px 0}.revealHead p{color:#6d6a64;line-height:1.8;max-width:520px;font-size:14px}.catalog{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:#fff;border-radius:25px;overflow:hidden;border:1px solid #0001;box-shadow:0 20px 60px #00000012;transition:.5s}.card:hover{transform:translateY(-12px)}.photo{height:350px;background:#e5e1da;overflow:hidden;position:relative}.photo img{width:100%;height:100%;object-fit:cover;transition:.8s}.card:hover img{transform:scale(1.07)}.tag{position:absolute;z-index:2;top:14px;left:14px;background:#ffffffe8;padding:8px 10px;border-radius:99px;font-size:8px;font-weight:950;letter-spacing:1px}.cardBody{padding:20px}.cardBody h3{margin:0;font-size:18px}.cardBody p{font-size:11px;color:#777;line-height:1.5;min-height:34px}.price{font-weight:950;font-size:18px;margin:12px 0}.buy{width:100%;border:0;background:#111;color:#fff;border-radius:12px;padding:13px;font-size:10px;font-weight:950}.buy:hover{background:#2a2a2a}
+.black{background:#070707;color:#fff;padding:130px 5vw}.manifesto{max-width:1000px}.manifesto h2{font-size:clamp(50px,9vw,145px);line-height:.78;letter-spacing:-9px;margin:18px 0}.manifesto p{max-width:620px;color:#9a958c;line-height:1.8;font-size:14px}.tiles{margin-top:80px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:16px}.tile{min-height:330px;border:1px solid #fff14;border-radius:25px;padding:28px;display:flex;flex-direction:column;justify-content:end;background:linear-gradient(145deg,#151515,#090909)}.tile h3{font-size:28px;letter-spacing:-2px;margin:8px 0}.tile p{font-size:11px;color:#888;line-height:1.6}
+.footer{padding:70px 5vw;background:#050505;border-top:1px solid #fff12;display:flex;justify-content:space-between;color:#777;font-size:10px}.footer b{color:#fff;font-size:20px;letter-spacing:-1px}
+.overlay{position:fixed;inset:0;z-index:50;background:#000a;display:none}.overlay.show{display:block}.panel{position:absolute;right:0;top:0;height:100%;width:min(520px,94vw);background:#f6f2e9;color:#111;padding:28px;overflow:auto}.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(620px,92vw);max-height:90vh;overflow:auto;background:#f6f2e9;color:#111;border-radius:24px;padding:26px}.close{float:right;width:35px;height:35px;border-radius:50%;background:#111;color:#fff;border:0}.field{width:100%;padding:13px;margin:6px 0;border:1px solid #0002;border-radius:10px;background:#fff}.submit{width:100%;padding:13px;border:0;border-radius:11px;background:#111;color:#fff;font-weight:950;margin-top:8px}.line{padding:14px 0;border-bottom:1px solid #0002}.detailHero{width:100%;height:340px;object-fit:cover;border-radius:18px;margin-top:15px}.toast{position:fixed;z-index:70;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;background:#fff;color:#111;padding:13px 18px;border-radius:999px;font-size:10px;font-weight:900;transition:.3s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:950px){.navlinks{display:none}.catalog{grid-template-columns:repeat(2,1fr)}.revealHead{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}.caption h1{letter-spacing:-5px}}
+@media(max-width:600px){.nav{height:64px}.navright .pill:first-child{display:none}.scrollspace{height:600vh}.hud{bottom:4vh}.caption p{display:none}.catalog{grid-template-columns:1fr}.photo{height:320px}.sideLabel{display:none}.reveal,.black{padding:90px 5vw}}
 </style>
 </head>
 <body>
-<nav class="nav"><a class="logo" href="#">NEX<span>O</span>RA</a><div class="navlinks"><a href="#collection">Collection</a><a href="#experience">Experience</a><a href="#journal">Journal</a></div><div class="navright"><button class="pill" onclick="account()">Account</button><button class="pill" onclick="cartOpen()">Bag <span id="count">0</span></button></div></nav>
+<div id="webgl"></div><div class="vignette"></div><div class="grain"></div>
+<nav class="nav"><a class="logo" href="#">NEX<i>O</i>RA</a><div class="navlinks"><a href="#collection">Collection</a><a href="#world">World</a><a href="#journal">Journal</a></div><div class="navright"><button class="pill" onclick="account()">Account</button><button class="pill" onclick="cartOpen()">Bag <span id="count">0</span></button></div></nav>
 
-<section class="journey">
-<div class="shopScene" id="scene">
-<div class="sky"></div><div class="ceiling"></div><div class="floor"></div><div class="backWall"></div>
-<div class="camera" id="camera"><div class="enterSign"><small>WELCOME TO</small>NEXORA</div><div class="door left" id="dl"><span class="handle"></span></div><div class="door right" id="dr"><span class="handle"></span></div><div class="shopName"><b>THE FLAGSHIP DIGITAL STORE</b><p>Scroll to enter the experience</p></div></div>
-<div class="scrollHint">SCROLL ↓</div>
-</div></section>
+<section class="scrollspace" id="world"></section>
+<div class="centerPrompt" id="prompt"><span>SCROLL TO ENTER</span><strong>THE FLAGSHIP</strong></div>
+<div class="sideLabel">NEXORA · DIGITAL FLAGSHIP · 2026</div>
+<div class="hud"><div class="caption"><span class="eyebrow">NEXORA / 01</span><h1 id="heroTitle">STEP INSIDE.</h1><p id="heroText">A commerce experience designed as a physical world. Scroll forward to walk through the flagship, discover objects and approach the products.</p></div><div class="progress"><span id="pct">00</span><div class="bar"><b id="bar"></b></div><span>100</span></div></div>
+<div class="productsLayer" id="hotspots"></div>
 
-<main class="showroom">
-<div class="wrap">
-<div class="intro"><div><span class="eyebrow">THE NEXORA FLAGSHIP</span><h1>ENTER.<br>EXPLORE.<br>OWN.</h1></div><div><p>A cinematic commerce experience built like a physical flagship store. Every product is presented as a real-world object, with depth, photography, motion and a shopping flow designed around discovery.</p><div class="stats"><div><b>08</b><small>Objects</small></div><div><b>4K</b><small>Visual direction</small></div><div><b>24/7</b><small>Cloud store</small></div></div></div></div>
-<div class="aisearch"><input id="search" placeholder="Describe what you want — e.g. a laptop for coding under ₹70,000"><button onclick="smartSearch()">Find it →</button></div>
-<div id="collection" class="sectionTitle"><div><span class="eyebrow">THE COLLECTION</span><h2>Inside the store.</h2></div><div class="muted">Real photographic product presentation</div></div>
-<div id="products" class="grid"></div>
-</div>
-</main>
+<section class="reveal" id="collection"><div class="revealHead"><div><span class="eyebrow">THE COLLECTION</span><h2>OBJECTS<br>WORTH<br>ENTERING FOR.</h2></div><p>NEXORA turns a normal product grid into a physical-feeling retail journey. The live catalog remains connected to the Cloudflare-backed commerce API, while the visual layer creates the cinematic storefront.</p></div><div class="catalog" id="catalog"></div></section>
 
-<section id="experience" class="feature"><div class="wrap"><div class="sectionTitle"><div><span class="eyebrow">THE EXPERIENCE</span><h2>Commerce without the clutter.</h2></div></div><div class="featureGrid"><div class="featureBig"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=90" alt="premium retail interior"><div class="featureCopy"><span class="eyebrow">FLAGSHIP MODE</span><h2>It should feel like walking in.</h2><p>Scroll through the architecture, discover products, open them, compare them and buy without breaking the experience.</p></div></div><div><div class="featureSmall"><span class="eyebrow">01 · DISCOVERY</span><h3>Natural language shopping.</h3><p>Search by outcome, not by SKU. NEXORA matches your request against the live catalog.</p></div><div class="featureSmall" style="margin-top:20px"><span class="eyebrow">02 · OWNERSHIP</span><h3>Accounts & orders.</h3><p>Your account, bag and orders remain connected to the real Cloudflare backend already powering the store.</p></div></div></div></div></section>
+<section class="black"><div class="manifesto"><span class="eyebrow">THE NEXORA WORLD</span><h2>NOT A WEBSITE.<br>A PLACE.</h2><p>Architecture, light, soundless motion, material and product photography work together to make browsing feel intentional. No cartoon shop. No generic dashboard. A dark luxury flagship built for modern commerce.</p></div><div class="tiles"><div class="tile"><span class="eyebrow">01 / DISCOVERY</span><h3>Walk the aisle.</h3><p>Scroll is the camera. Every section is staged as a physical space rather than a page.</p></div><div class="tile"><span class="eyebrow">02 / PRODUCT</span><h3>Approach the object.</h3><p>Hotspots appear on the displays and open a focused product view.</p></div><div class="tile"><span class="eyebrow">03 / OWNERSHIP</span><h3>Buy without leaving.</h3><p>Account, bag, checkout and order history use the existing backend.</p></div></div></section>
+<section class="reveal" id="journal"><div class="revealHead"><div><span class="eyebrow">NEXORA JOURNAL</span><h2>LESS<br>NOISE.<br>MORE<br>INTENT.</h2></div><p>Premium retail should give the customer room to look. NEXORA uses space, pacing and cinematic transitions to create that feeling.</p></div></section>
+<footer class="footer"><div><b>NEXORA</b><div>THE DIGITAL FLAGSHIP · 2026</div></div><div>Cloud commerce · Accounts · Orders · D1</div></footer>
 
-<section id="journal" class="showroom" style="padding-top:100px"><div class="wrap"><div class="intro"><div><span class="eyebrow">NEXORA JOURNAL</span><h1>LESS NOISE.<br>MORE INTENT.</h1></div><div><p>Premium digital retail is not about adding more boxes. It is about creating a feeling: the feeling of entering somewhere, seeing something, wanting to understand it, and making a confident choice.</p></div></div></div></section>
-<footer><div class="wrap foot"><div><div class="logo">NEX<span>O</span>RA</div><p>The digital flagship store · 2026</p></div><p>Cloud commerce · Customer accounts · Database-backed orders</p></div></footer>
-
-<div id="cartOverlay" class="overlay" onclick="if(event.target===this)cartClose()"><div class="panel"><button class="close" onclick="cartClose()">×</button><span class="eyebrow">YOUR BAG</span><h1>Ready when you are.</h1><div id="cart"></div></div></div>
+<div id="cartOverlay" class="overlay" onclick="if(event.target===this)cartClose()"><div class="panel"><button class="close" onclick="cartClose()">×</button><span class="eyebrow">YOUR BAG</span><h1>READY WHEN YOU ARE.</h1><div id="cart"></div></div></div>
 <div id="modalOverlay" class="overlay" onclick="if(event.target===this)modalClose()"><div class="modal"><button class="close" onclick="modalClose()">×</button><div id="modalContent"></div></div></div>
 <div id="toast" class="toast"></div>
 
 <script>
 const P=[
-{id:1,n:'Nova X1 Ultra',cat:'Tech',p:79999,img:'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=1000&q=90',d:'Flagship performance, pro camera system and all-day battery.',k:'phone mobile flagship camera'},
-{id:2,n:'Vertex 14',cat:'Computing',p:64999,img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1000&q=90',d:'Lightweight performance laptop for coding, study and creation.',k:'laptop coding programming computer'},
-{id:3,n:'AeroSound Pro',cat:'Audio',p:8999,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=90',d:'Immersive wireless audio with adaptive noise control.',k:'headphone audio music wireless'},
-{id:4,n:'Pulse Watch 4',cat:'Wearables',p:12999,img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=90',d:'Fitness, notifications and daily activity tracking.',k:'watch fitness smartwatch'},
-{id:5,n:'Orbit Mechanical',cat:'Desk',p:6999,img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=90',d:'Tactile mechanical keyboard built for long coding sessions.',k:'keyboard coding desk mechanical'},
-{id:6,n:'LumaCam 4K',cat:'Creator',p:18999,img:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=90',d:'Compact 4K creator camera for streams, calls and travel.',k:'camera creator video 4k'},
-{id:7,n:'Flux Mini',cat:'Tech',p:3499,img:'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1000&q=90',d:'Compact room-filling smart speaker with rich sound.',k:'speaker audio music'},
-{id:8,n:'Arc Pad',cat:'Computing',p:45999,img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1000&q=90',d:'High-refresh display designed for work, design and play.',k:'monitor display gaming desk'}
+{id:1,n:'Nova X1 Ultra',cat:'Tech',p:79999,img:'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=1200&q=90',d:'Flagship performance, pro camera system and all-day battery.'},
+{id:2,n:'Vertex 14',cat:'Computing',p:64999,img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=90',d:'Lightweight performance laptop for coding, study and creation.'},
+{id:3,n:'AeroSound Pro',cat:'Audio',p:8999,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=90',d:'Immersive wireless audio with adaptive noise control.'},
+{id:4,n:'Pulse Watch 4',cat:'Wearables',p:12999,img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=90',d:'Fitness, notifications and daily activity tracking.'},
+{id:5,n:'Orbit Mechanical',cat:'Desk',p:6999,img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=90',d:'Tactile mechanical keyboard built for long coding sessions.'},
+{id:6,n:'LumaCam 4K',cat:'Creator',p:18999,img:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=90',d:'Compact 4K creator camera for streams, calls and travel.'},
+{id:7,n:'Flux Mini',cat:'Tech',p:3499,img:'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1200&q=90',d:'Compact room-filling smart speaker with rich sound.'},
+{id:8,n:'Arc Pad',cat:'Computing',p:45999,img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=90',d:'High-refresh display designed for work, design and play.'}
 ];
-let bag=JSON.parse(localStorage.getItem('nexora-bag')||'[]'),wishlist=JSON.parse(localStorage.getItem('nexora-wishlist')||'[]'),token=localStorage.getItem('nexora-token')||'';
-const $=x=>document.getElementById(x), money=n=>'₹'+Number(n).toLocaleString('en-IN');
-function save(){localStorage.setItem('nexora-bag',JSON.stringify(bag));localStorage.setItem('nexora-wishlist',JSON.stringify(wishlist));$('count').textContent=bag.reduce((a,x)=>a+x.q,0)}
+let bag=JSON.parse(localStorage.getItem('nexora-bag')||'[]'),token=localStorage.getItem('nexora-token')||'';
+const money=n=>'₹'+Number(n).toLocaleString('en-IN'),$=id=>document.getElementById(id);
+function save(){localStorage.setItem('nexora-bag',JSON.stringify(bag));$('count').textContent=bag.reduce((a,x)=>a+x.q,0)}
 function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
-function render(list=P){$('products').innerHTML=list.map(x=>`<article class="card"><div class="photo"><span class="tag">${x.cat}</span><button class="heart" onclick="wish(${x.id})">${wishlist.includes(x.id)?'♥':'♡'}</button><img src="${x.img}" alt="${x.n}"></div><div class="info"><h3>${x.n}</h3><p>${x.d}</p><div class="price">${money(x.p)}</div><button class="buy" onclick="add(${x.id})">ADD TO BAG · ${money(x.p)} →</button></div></article>`).join('')}
 function add(id){let x=bag.find(a=>a.id===id);x?x.q++:bag.push({id,q:1});save();toast('Added to your bag')}
-function wish(id){wishlist.includes(id)?wishlist=wishlist.filter(x=>x!==id):wishlist.push(id);save();render()}
-function smartSearch(){let q=$('search').value.toLowerCase();let words=q.split(/\s+/);let list=P.filter(x=>words.some(w=>w.length>2&&(x.n+' '+x.cat+' '+x.k+' '+x.d).toLowerCase().includes(w)));render(list.length?list:P);toast(list.length?'Matching products found':'Showing the full collection')}
-function cartOpen(){let total=0;$('cart').innerHTML=bag.length?bag.map(x=>{let p=P.find(a=>a.id===x.id);total+=p.p*x.q;return `<div class="line"><b>${p.n}</b><p>${x.q} × ${money(p.p)}</p></div>`}).join('')+`<h2>Total · ${money(total)}</h2><button class="submit" onclick="checkout()">CHECKOUT</button>`:'<p>Your bag is empty.</p>';$('cartOverlay').classList.add('show')}
-function cartClose(){$('cartOverlay').classList.remove('show')}
-async function checkout(){if(!token){account('Please sign in before checkout.');return}let r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({items:bag.map(x=>({id:x.id,quantity:x.q}))})});let d=await r.json();if(!r.ok){toast(d.error||'Checkout failed');return}bag=[];save();cartClose();toast('Order '+d.order.id+' confirmed')}
-function account(note=''){ $('modalContent').innerHTML=token?'<span class="eyebrow">ACCOUNT</span><h2>Welcome back.</h2><p>Your NEXORA account is connected to the live cloud store.</p><button class="submit" onclick="orders()">MY ORDERS</button><button class="submit" onclick="logout()">SIGN OUT</button>':`<span class="eyebrow">ACCOUNT</span><h2>${note||'Join NEXORA.'}</h2><input id="name" class="field" placeholder="Name"><input id="email" class="field" placeholder="Email"><input id="pass" class="field" type="password" placeholder="Password (6+ characters)"><button class="submit" onclick="signup()">CREATE ACCOUNT</button><button class="submit" onclick="login()">SIGN IN</button>`;$('modalOverlay').classList.add('show')}
-async function signup(){let b={name:$('name').value,email:$('email').value,password:$('pass').value};let r=await fetch('/api/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}),d=await r.json();if(!r.ok){toast(d.error||'Signup failed');return}token=d.token;localStorage.setItem('nexora-token',token);modalClose();toast('Account created')}
-async function login(){let b={email:$('email').value,password:$('pass').value};let r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}),d=await r.json();if(!r.ok){toast(d.error||'Login failed');return}token=d.token;localStorage.setItem('nexora-token',token);modalClose();toast('Signed in')}
-async function orders(){let r=await fetch('/api/orders',{headers:{Authorization:'Bearer '+token}}),d=await r.json();$('modalContent').innerHTML='<span class="eyebrow">MY ORDERS</span><h2>Your NEXORA orders.</h2>'+(d.orders?.length?d.orders.map(o=>`<div class="line"><b>${o.id}</b><p>${o.status} · ${money(o.total)} · ${o.created_at}</p></div>`).join(''):'<p>No orders yet.</p>')}
-function logout(){token='';localStorage.removeItem('nexora-token');modalClose();toast('Signed out')}
+function catalog(){ $('catalog').innerHTML=P.map(p=>'<article class="card"><div class="photo"><span class="tag">'+p.cat+'</span><img src="'+p.img+'" alt="'+p.n+'"></div><div class="cardBody"><h3>'+p.n+'</h3><p>'+p.d+'</p><div class="price">'+money(p.p)+'</div><button class="buy" onclick="openProduct('+p.id+')">VIEW OBJECT →</button></div></article>').join('') }
+function openProduct(id){let p=P.find(x=>x.id===id);$('modalContent').innerHTML='<span class="eyebrow">'+p.cat+' / NEXORA OBJECT</span><h1>'+p.n+'</h1><img class="detailHero" src="'+p.img+'"><p>'+p.d+'</p><h2>'+money(p.p)+'</h2><button class="submit" onclick="add('+p.id+');modalClose()">ADD TO BAG</button>';$('modalOverlay').classList.add('show')}
 function modalClose(){$('modalOverlay').classList.remove('show')}
-function scrollFX(){let y=scrollY,max=document.querySelector('.journey').offsetHeight-innerHeight,p=Math.max(0,Math.min(1,y/max));let open=p*100; $('dl').style.transform='translateX('+(-open*1.8)+'%)';$('dr').style.transform='translateX('+(open*1.8)+'%)';$('camera').style.transform='translateZ('+(p*220)+'px) scale('+(1+p*.16)+')';document.querySelector('.enterSign').style.opacity=Math.max(0,1-p*3);document.querySelector('.shopName').style.opacity=Math.max(0,1-p*4)}
-addEventListener('scroll',scrollFX,{passive:true});render();save();scrollFX();
+function cartOpen(){let total=0;$('cart').innerHTML=bag.length?bag.map(x=>{let p=P.find(a=>a.id===x.id);total+=p.p*x.q;return '<div class="line"><b>'+p.n+'</b><p>'+x.q+' × '+money(p.p)+'</p></div>'}).join('')+'<h2>TOTAL · '+money(total)+'</h2><button class="submit" onclick="checkout()">CHECKOUT</button>':'<p>Your bag is empty.</p>';$('cartOverlay').classList.add('show')}
+function cartClose(){$('cartOverlay').classList.remove('show')}
+async function checkout(){if(!token){cartClose();account('Sign in before checkout.');return}let r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({items:bag.map(x=>({id:x.id,quantity:x.q}))})}),d=await r.json();if(!r.ok)return toast(d.error||'Checkout failed');bag=[];save();cartClose();toast('Order '+d.order.id+' confirmed')}
+function account(note=''){if(token){$('modalContent').innerHTML='<span class="eyebrow">ACCOUNT</span><h1>WELCOME BACK.</h1><p>Your NEXORA account is connected to the live cloud store.</p><button class="submit" onclick="orders()">MY ORDERS</button><button class="submit" onclick="logout()">SIGN OUT</button>'}else{$('modalContent').innerHTML='<span class="eyebrow">ACCOUNT</span><h1>'+note+'</h1><input id="name" class="field" placeholder="Name"><input id="email" class="field" placeholder="Email"><input id="pass" class="field" type="password" placeholder="Password (6+ characters)"><button class="submit" onclick="signup()">CREATE ACCOUNT</button><button class="submit" onclick="login()">SIGN IN</button>'}$('modalOverlay').classList.add('show')}
+async function signup(){let b={name:$('name').value,email:$('email').value,password:$('pass').value};let r=await fetch('/api/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}),d=await r.json();if(!r.ok)return toast(d.error||'Signup failed');token=d.token;localStorage.setItem('nexora-token',token);modalClose();toast('Account created')}
+async function login(){let b={email:$('email').value,password:$('pass').value};let r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}),d=await r.json();if(!r.ok)return toast(d.error||'Login failed');token=d.token;localStorage.setItem('nexora-token',token);modalClose();toast('Signed in')}
+async function orders(){let r=await fetch('/api/orders',{headers:{Authorization:'Bearer '+token}}),d=await r.json();$('modalContent').innerHTML='<span class="eyebrow">MY ORDERS</span><h1>ORDER HISTORY.</h1>'+(d.orders?.length?d.orders.map(o=>'<div class="line"><b>'+o.id+'</b><p>'+o.status+' · '+money(o.total)+' · '+o.created_at+'</p></div>').join(''):'<p>No orders yet.</p>')}
+function logout(){token='';localStorage.removeItem('nexora-token');modalClose();toast('Signed out')}
+save();catalog();
+</script>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+
+const root=document.getElementById('webgl'),scene=new THREE.Scene();
+scene.background=new THREE.Color(0x050505);
+scene.fog=new THREE.FogExp2(0x050505,.018);
+const camera=new THREE.PerspectiveCamera(52,innerWidth/innerHeight,.05,180);
+const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;root.appendChild(renderer.domElement);
+
+const world=new THREE.Group();scene.add(world);
+const mat=(c,r=0.5,m=0)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m});
+const floor=mat(0x171717,.28,.72),wall=mat(0x101010,.55,.35),dark=mat(0x070707,.7,.15),gold=mat(0xb58a52,.3,.8),glass=new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:.12,metalness:.05,transmission:.45,transparent:true,opacity:.45});
+function box(x,y,z,sx,sy,sz,ma,cast=true){let o=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),ma);o.position.set(x,y,z);o.castShadow=cast;o.receiveShadow=true;world.add(o);return o}
+box(0,-.12,-28,34,.25,110,floor,false);
+box(-17,6,-28,.35,12,110,wall,false);box(17,6,-28,.35,12,110,wall,false);
+box(0,12,-28,34,.3,110,dark,false);
+for(let z=-5;z>-98;z-=8){box(0,11.7,z,14,.06,2,gold,false);box(0,11.62,z+1.8,14,.03,.03,gold,false)}
+
+const ceilingLights=[];
+for(let z=-4;z>-102;z-=9){let light=new THREE.PointLight(0xfff4df,2.7,15);light.position.set(0,10,z);world.add(light);ceilingLights.push(light);box(0,11.85,z,5,.08,.45,mat(0xffe9c8,.15,.1),false)}
+
+function shelf(z,x=0,side=1){
+ const sx=side*10; box(sx,3.5,z, .32,7.2,4.8,wall);
+ for(let y=1;y<7;y+=1.55) box(sx-side*.8,y,z,1.3,.12,4.4,gold,false);
+}
+for(let z=-14;z>-100;z-=10){shelf(z,-1,-1);shelf(z,1,1)}
+
+const textureLoader=new THREE.TextureLoader();textureLoader.setCrossOrigin('anonymous');
+const products=[];
+const positions=[
+[-8.8,1.6,-12,1], [8.8,1.7,-22,2], [-8.8,2,-32,3], [8.8,1.7,-42,4],
+[-8.8,1.7,-54,5], [8.8,2,-65,6], [-8.8,1.7,-77,7], [8.8,1.7,-89,8]
+];
+function productObject(p,pos){
+ const g=new THREE.Group();g.position.set(pos[0],pos[1],pos[2]);g.userData.id=p.id;
+ const pedestal=new THREE.Mesh(new THREE.CylinderGeometry(1.15,1.3,.45,48),mat(0x252525,.23,.8));pedestal.position.y=-1.2;pedestal.castShadow=true;g.add(pedestal);
+ const tex=textureLoader.load(p.img);tex.colorSpace=THREE.SRGBColorSpace;
+ const plane=new THREE.Mesh(new THREE.PlaneGeometry(2.2,2.2),new THREE.MeshBasicMaterial({map:tex,transparent:true}));
+ plane.position.y=.1;plane.rotation.y=pos[0]<0?Math.PI*.5:-Math.PI*.5;g.add(plane);
+ const rim=new THREE.Mesh(new THREE.BoxGeometry(2.35,.04,2.35),mat(0xc29a61,.2,.85));rim.position.y=-1.02;g.add(rim);
+ world.add(g);products.push(g);
+}
+positions.forEach((pos,i)=>productObject(P[i],pos));
+
+const entrance=new THREE.Group();world.add(entrance);
+box(-6,3,3,7,.3,.3,gold,false);box(6,3,3,7,.3,.3,gold,false);
+box(-6,6,3,.25,6,.25,gold,false);box(6,6,3,.25,6,.25,gold,false);
+const signCanvas=document.createElement('canvas');signCanvas.width=1024;signCanvas.height=256;const ctx=signCanvas.getContext('2d');ctx.fillStyle='#080808';ctx.fillRect(0,0,1024,256);ctx.fillStyle='#f3eee5';ctx.font='900 120px Arial';ctx.textAlign='center';ctx.fillText('NEXORA',512,145);const signTex=new THREE.CanvasTexture(signCanvas);const sign=new THREE.Mesh(new THREE.PlaneGeometry(8,2),new THREE.MeshBasicMaterial({map:signTex,transparent:true}));sign.position.set(0,7,2.7);entrance.add(sign);
+
+const ambient=new THREE.HemisphereLight(0x8b8275,0x080808,.5);scene.add(ambient);
+const key=new THREE.DirectionalLight(0xffead0,2.2);key.position.set(0,12,8);key.castShadow=true;key.shadow.mapSize.set(2048,2048);scene.add(key);
+const side=new THREE.PointLight(0xb58a52,5,35);side.position.set(0,5,-35);scene.add(side);
+
+let progress=0,targetProgress=0,mouseX=0,mouseY=0;
+addEventListener('mousemove',e=>{mouseX=(e.clientX/innerWidth-.5)*2;mouseY=(e.clientY/innerHeight-.5)*2});
+addEventListener('scroll',()=>{const max=document.querySelector('.scrollspace').offsetHeight-innerHeight;targetProgress=Math.max(0,Math.min(1,scrollY/max))});
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+
+const ray=new THREE.Raycaster(),mouse=new THREE.Vector2();
+renderer.domElement.addEventListener('click',e=>{
+ mouse.x=e.clientX/innerWidth*2-1;mouse.y=-(e.clientY/innerHeight)*2+1;ray.setFromCamera(mouse,camera);
+ const hit=ray.intersectObjects(products,true)[0];if(hit){let o=hit.object;while(o.parent&&!o.userData.id)o=o.parent;openProduct(o.userData.id)}
+});
+const hotspots=document.getElementById('hotspots');
+P.forEach(p=>{let h=document.createElement('div');h.className='hotspot';h.id='hot'+p.id;h.innerHTML='<button onclick="openProduct('+p.id+')">'+p.n.toUpperCase()+' · VIEW</button>';hotspots.appendChild(h)});
+
+function cinematic(){
+ progress+=(targetProgress-progress)*.075;
+ const p=progress;
+ const z=5-(p*96);
+ const x=Math.sin(p*Math.PI*2)*1.7;
+ const y=2.25+Math.sin(p*Math.PI)*.35;
+ camera.position.lerp(new THREE.Vector3(x+mouseX*.35,y-mouseY*.15,z),.1);
+ camera.lookAt(new THREE.Vector3(x*.35,1.8,z-6));
+ camera.rotation.z=Math.sin(p*Math.PI*2)*.012;
+ const s=Math.max(0,1-p*5);document.getElementById('prompt').style.opacity=s;
+ document.getElementById('pct').textContent=String(Math.round(p*100)).padStart(2,'0');
+ document.getElementById('bar').style.width=(p*100)+'%';
+ const title=document.getElementById('heroTitle'),txt=document.getElementById('heroText');
+ if(p<.16){title.textContent='STEP INSIDE.';txt.textContent='A commerce experience designed as a physical world. Scroll forward to walk through the flagship, discover objects and approach the products.'}
+ else if(p<.38){title.textContent='FIND YOUR OBJECT.';txt.textContent='Move through the first gallery. Product displays are staged like real retail objects rather than flat cards.'}
+ else if(p<.7){title.textContent='GET CLOSER.';txt.textContent='Each display is a destination. Hover or click a product object to open its details and add it to your bag.'}
+ else {title.textContent='TAKE IT HOME.';txt.textContent='The visual journey ends where commerce begins: your real account, bag and Cloudflare-backed order flow.'}
+ positions.forEach((pos,i)=>{const obj=products[i],v=obj.position.clone();v.project(camera);const h=document.getElementById('hot'+P[i].id);const visible=Math.abs(v.x)<.78&&Math.abs(v.y)<.72&&v.z<1&&v.z>-1;h.classList.toggle('show',visible&&p>.08&&p<.94);h.style.left=((v.x+1)/2*100)+'%';h.style.top=((-v.y+1)/2*100)+'%';});
+}
+function animate(){requestAnimationFrame(animate);cinematic();products.forEach((o,i)=>{o.rotation.y=Math.sin(performance.now()*.00035+i)*.08;o.position.y=positions[i][1]+Math.sin(performance.now()*.001+i)*.025});renderer.render(scene,camera)}
+animate();
 </script>
 </body></html>
