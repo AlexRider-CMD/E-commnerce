@@ -19,27 +19,49 @@ footer{padding:50px 0;border-top:1px solid var(--line);margin-top:60px}.foot{dis
 .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);background:#171717;color:white;padding:13px 18px;border-radius:13px;opacity:0;pointer-events:none;transition:.3s;z-index:100;font-weight:750}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:900px){.heroGrid,.intent{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:repeat(2,1fr)}.links{display:none}.stage{min-height:420px}.hero h1{letter-spacing:-4px}}
 @media(max-width:550px){.products{grid-template-columns:1fr 1fr;gap:9px}.visual{height:170px;font-size:55px}.info{padding:11px}.info h3{font-size:14px}.hero{padding-top:45px}.hero h1{font-size:55px}.section h2{font-size:32px}.banner{display:block}.foot{display:block}}
+
+/* NEXORA 2.0 — premium commerce layer */
+.topbar{background:#171717;color:#fff;font-size:11px;font-weight:800;letter-spacing:.35px;padding:8px 0;text-align:center}
+.topbar span{color:#ff8a6e}.navExtra{display:flex;gap:8px;align-items:center}.navExtra .miniBtn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-weight:800}
+.heroBadge{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.heroBadge span{padding:7px 10px;border-radius:99px;background:#fff;border:1px solid var(--line);font-size:11px;font-weight:850}
+.shopTools{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.select{padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:750}
+.card .compareBtn{position:absolute;left:12px;top:12px;padding:7px 9px;border-radius:10px;background:#ffffffdd;font-size:10px;font-weight:900;z-index:2}
+.compareBar{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(140px);width:min(720px,92%);background:#171717;color:#fff;padding:14px;border-radius:18px;z-index:45;box-shadow:0 20px 60px #0005;transition:.35s;display:flex;gap:12px;align-items:center;justify-content:space-between}.compareBar.show{transform:translateX(-50%) translateY(0)}
+.aiFab{position:fixed;right:22px;bottom:22px;width:58px;height:58px;border-radius:50%;background:#171717;color:#fff;z-index:44;box-shadow:0 15px 40px #0004;font-size:22px}.aiPanel{position:fixed;right:22px;bottom:92px;width:min(390px,calc(100% - 44px));background:#fffdf9;border:1px solid var(--line);border-radius:22px;z-index:44;box-shadow:0 25px 80px #0003;display:none;overflow:hidden}.aiPanel.show{display:block}.aiHead{padding:16px;background:#171717;color:#fff;display:flex;justify-content:space-between}.aiBody{padding:14px;max-height:360px;overflow:auto}.aiMsg{padding:11px 13px;border-radius:14px;background:#f0ede7;margin-bottom:9px;font-size:13px;line-height:1.45}.aiMsg.user{background:#171717;color:#fff;margin-left:30px}.aiInput{display:flex;gap:7px;padding:12px;border-top:1px solid var(--line)}.aiInput input{flex:1;border:1px solid var(--line);border-radius:11px;padding:10px}
+.recent{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.recent .feature{cursor:pointer}.dealGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:15px}.deal{border-radius:24px;padding:28px;background:linear-gradient(135deg,#171717,#3d302d);color:#fff;min-height:190px;position:relative;overflow:hidden}.deal:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-70px;bottom:-100px;background:#ff704d55}.deal b{font-size:34px}.deal p{color:#d6d0ca;max-width:500px}.dealSide{display:grid;gap:15px}.dealSide .feature{background:#fff}
+.progress{height:8px;background:#e8e3dc;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:68%;background:var(--accent);border-radius:inherit}
+@media(max-width:900px){.navExtra{display:none}.recent{grid-template-columns:repeat(2,1fr)}.dealGrid{grid-template-columns:1fr}}
+@media(max-width:550px){.aiFab{right:14px;bottom:14px}.aiPanel{right:14px;bottom:82px}.shopTools{width:100%}.shopTools .select{flex:1}.recent{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-<nav><div class="wrap nav"><a class="logo" href="#">NEX<span>O</span>RA</a><div class="links"><a href="#shop">Shop</a><a href="#intent">AI Intent</a><a href="#features">Features</a></div><div class="actions"><button class="icon" onclick="focusSearch()">⌕</button><button class="icon" onclick="openCart()">🛒<span id="cartCount" class="count">0</span></button></div></div></nav>
+<div class="topbar">FREE SHIPPING OVER ₹2,999 · <span>MEMBER DEALS ARE LIVE</span> · DEMO STORE — NO REAL PAYMENT</div><nav><div class="wrap nav"><a class="logo" href="#">NEX<span>O</span>RA</a><div class="links"><a href="#shop">Shop</a><a href="#intent">AI Intent</a><a href="#features">Features</a></div><div class="actions"><div class="navExtra"><button class="miniBtn" onclick="toggleTheme()">◐</button><button class="miniBtn" onclick="openCompare()">Compare</button></div><button class="icon" onclick="focusSearch()">⌕</button><button class="icon" onclick="openCart()">🛒<span id="cartCount" class="count">0</span></button></div></div></nav>
 
 <main>
-<section class="hero wrap"><div class="heroGrid"><div><span class="eyebrow">THE FUTURE OF EVERYDAY COMMERCE</span><h1>BUY <em>BETTER.</em><br>LIVE <span>SMARTER.</span></h1><p>A cinematic storefront prototype with intelligent discovery, instant cart interactions, wishlist memory, quick product views and an AI-style shopping intent engine — all running in one file.</p><div class="cta"><a class="primary" href="#shop">Explore products →</a><button class="secondary" onclick="document.getElementById('intent').scrollIntoView()">Shop by intent</button></div></div>
+<section class="hero wrap"><div class="heroGrid"><div><span class="eyebrow">THE FUTURE OF EVERYDAY COMMERCE</span><h1>BUY <em>BETTER.</em><br>LIVE <span>SMARTER.</span></h1><p>A cinematic storefront prototype with intelligent discovery, instant cart interactions, wishlist memory, quick product views and an AI-style shopping intent engine — all running in one file.</p><div class="cta"><a class="primary" href="#shop">Explore products →</a><button class="secondary" onclick="document.getElementById('intent').scrollIntoView()">Shop by intent</button></div><div class="heroBadge"><span>⚡ Instant cart</span><span>✦ Smart discovery</span><span>♡ Wishlist memory</span><span>◈ Quick view</span></div></div>
 <div class="stage"><div class="orb"></div><div class="float f1">✦ PERSONALIZED FOR YOU</div><div class="float f2">⚡ FAST CHECKOUT</div><div class="stageCard"><div><small>FEATURED DROP</small><br><b>Nova X1 Ultra</b></div><strong>₹79,999</strong></div></div></div></section>
 
 <section id="intent" class="section wrap"><div class="intent"><div><h3>Tell NEXORA what you need.</h3><div class="muted">Try: “coding laptop under ₹70,000” or “wireless audio under ₹10k”.</div></div><div><input id="intentInput" placeholder="I need a laptop for coding under ₹70,000"><button onclick="runIntent()">Find my match →</button><div id="intentResult" class="result" style="margin-top:10px">Your smart shopping result will appear here.</div></div></div></section>
 
-<section id="shop" class="section wrap"><div class="sectionHead"><div><div class="tag">CURATED STORE</div><h2>Explore the collection.</h2></div><input id="search" oninput="render()" placeholder="Search products..." style="padding:12px 15px;border:1px solid var(--line);border-radius:13px;background:white;width:230px"></div><div id="filters" class="filters"></div><div id="products" class="products" style="margin-top:20px"></div>
+<section id="shop" class="section wrap"><div class="sectionHead"><div><div class="tag">CURATED STORE</div><h2>Explore the collection.</h2></div><input id="search" oninput="render()" placeholder="Search products..." style="padding:12px 15px;border:1px solid var(--line);border-radius:13px;background:white;width:230px"></div><div class="shopTools"><div id="filters" class="filters"></div><select id="sort" class="select" onchange="render()"><option value="featured">Sort: Featured</option><option value="low">Price: Low → High</option><option value="high">Price: High → Low</option><option value="deal">Biggest discount</option></select></div><div id="products" class="products" style="margin-top:20px"></div>
 <div class="banner"><div><div class="tag">NEXORA CLUB</div><h2>Save. Discover. Repeat.</h2><p class="muted">Unlock member pricing, early drops and personalized collections.</p></div><button class="primary" onclick="toast('NEXORA Club demo activated ✦')">Join free</button></div></section>
 
 <section id="features" class="section wrap"><div class="sectionHead"><div><div class="tag">DESIGNED DIFFERENTLY</div><h2>Commerce, reimagined.</h2></div></div><div class="features"><div class="feature"><b>⚡ Smart Cart</b><p>Quantity controls, persistent cart state and contextual add-to-cart interactions.</p></div><div class="feature"><b>✦ AI Battle</b><p>Intent matching helps shoppers narrow a product decision in natural language.</p></div><div class="feature"><b>♡ Memory</b><p>Wishlist and cart data persist locally between refreshes on the same browser.</p></div><div class="feature"><b>◈ Quick View</b><p>Open product details without leaving the shopping flow.</p></div></div></section>
+
+<section class="section wrap"><div class="dealGrid">
+<div class="deal"><div class="tag" style="color:#ffb39e">DEAL RADAR</div><b>Up to 30% off<br>selected drops.</b><p>Fresh demo offers, member pricing and limited-time collections — built into the experience.</p><button class="secondary" onclick="document.getElementById('shop').scrollIntoView()">Shop deals →</button></div>
+<div class="dealSide"><div class="feature"><b>🚚 Free delivery</b><p>On demo orders above ₹2,999.</p><div class="progress"><i></i></div></div><div class="feature"><b>🔒 Safe checkout</b><p>No real payment is processed in this prototype.</p></div></div>
+</div></section>
+<section class="section wrap"><div class="sectionHead"><div><div class="tag">RECENTLY VIEWED</div><h2>Pick up where you left off.</h2></div></div><div id="recent" class="recent"></div></section>
 </main>
 <footer><div class="wrap foot"><div><div class="logo">NEX<span>O</span>RA</div><p class="muted">Next-gen commerce prototype · Built for GitHub.</p></div><div class="muted">Checkout is a safe demo. Production integrations can connect auth, inventory, payments, orders, reviews and notifications.</div></div></footer>
 
 <div id="drawer" class="drawer" onclick="if(event.target===this)closeCart()"><div class="panel"><button class="close" onclick="closeCart()">×</button><h2>Your cart</h2><div id="cart"></div></div></div>
 <div id="modal" class="modal" onclick="if(event.target===this)closeModal()"><div class="modalBox"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
 <div id="toast" class="toast"></div>
+<div id="compareBar" class="compareBar"><span id="compareText">0 products selected</span><div><button class="secondary" onclick="openCompare()">View comparison</button><button class="secondary" onclick="clearCompare()">Clear</button></div></div>
+<button class="aiFab" onclick="toggleAI()" title="NEXORA AI">✦</button>
+<div id="aiPanel" class="aiPanel"><div class="aiHead"><b>✦ NEXORA AI</b><button onclick="toggleAI()" style="background:none;color:#fff;font-size:18px">×</button></div><div id="aiBody" class="aiBody"><div class="aiMsg">Hi! Tell me what you want to buy, your budget, or compare two products. I’ll guide you through this demo store.</div></div><div class="aiInput"><input id="aiInput" placeholder="e.g. best laptop under ₹70k" onkeydown="if(event.key==='Enter')askAI()"><button class="primary" onclick="askAI()">Send</button></div></div>
 
 <script>
 const products=[
@@ -89,5 +111,52 @@ function runIntent(){
 function focusSearch(){document.getElementById('search').focus();document.getElementById('shop').scrollIntoView()}
 function toast(s){let t=document.getElementById('toast');t.textContent=s;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove('show'),2200)}
 render();updateCount();
+
+let compare=JSON.parse(localStorage.getItem('nexora-compare')||'[]');
+let recent=JSON.parse(localStorage.getItem('nexora-recent')||'[]');
+
+function saveAdvanced(){localStorage.setItem('nexora-compare',JSON.stringify(compare));localStorage.setItem('nexora-recent',JSON.stringify(recent))}
+function toggleTheme(){
+ document.body.classList.toggle('night');
+ if(document.body.classList.contains('night')){document.body.style.background='#101010';document.body.style.color='#f5f1ea';toast('Night mode enabled')}
+ else{document.body.style.background='';document.body.style.color='';toast('Day mode enabled')}
+}
+function toggleCompare(id){compare.includes(id)?compare=compare.filter(x=>x!==id):compare.length<3&&compare.push(id);saveAdvanced();updateCompare();render()}
+function updateCompare(){document.getElementById('compareText').textContent=compare.length+' product'+(compare.length===1?'':'s')+' selected';document.getElementById('compareBar').classList.toggle('show',compare.length>0)}
+function clearCompare(){compare=[];saveAdvanced();updateCompare();render()}
+function openCompare(){
+ if(compare.length<2){toast('Select at least 2 products to compare');return}
+ let xs=compare.map(id=>products.find(x=>x.id===id)).filter(Boolean);
+ document.getElementById('modalContent').innerHTML='<div class="tag">AI PRODUCT BATTLE</div><h2>Compare your shortlist</h2>'+xs.map(x=>'<div style="padding:14px 0;border-bottom:1px solid var(--line)"><b>'+x.icon+' '+x.n+'</b><div class="muted">'+x.desc+'</div><strong>'+money(x.p)+'</strong></div>').join('')+'<p class="muted">Compare price, category and use-case fit side by side. In production, this can connect to live specs, inventory and reviews.</p>';
+ document.getElementById('modal').classList.add('show')
+}
+function markRecent(id){
+ recent=[id,...recent.filter(x=>x!==id)].slice(0,4);saveAdvanced();drawRecent()
+}
+function drawRecent(){
+ let el=document.getElementById('recent');if(!el)return;
+ if(!recent.length){el.innerHTML='<div class="feature"><b>Nothing here yet.</b><p>Open Quick View on a product and it will appear here.</p></div>';return}
+ el.innerHTML=recent.map(id=>{let x=products.find(p=>p.id===id);return '<div class="feature" onclick="quick('+x.id+')"><b>'+x.icon+' '+x.n+'</b><p>'+money(x.p)+' · '+x.cat+'</p></div>'}).join('')
+}
+function toggleAI(){document.getElementById('aiPanel').classList.toggle('show');setTimeout(()=>document.getElementById('aiInput')?.focus(),50)}
+function askAI(){
+ let inp=document.getElementById('aiInput'),q=inp.value.trim();if(!q)return;
+ let body=document.getElementById('aiBody');body.innerHTML+='<div class="aiMsg user">'+q.replace(/</g,'&lt;')+'</div>';
+ let low=q.toLowerCase(), budget=(low.match(/(?:under|below|less than|₹)\s*([\d,]+)/)||[])[1],max=budget?parseInt(budget.replace(/,/g,''),10):Infinity;
+ let found=products.filter(x=>x.p<=max&&(x.n+' '+x.keys+' '+x.cat).toLowerCase().split(/\s+/).some(k=>k.length>2&&low.includes(k))).slice(0,3);
+ if(!found.length)found=products.filter(x=>x.p<=max).slice(0,3);
+ let reply=found.length?'I found: '+found.map(x=>x.n+' ('+money(x.p)+')').join(', ')+'. Open Quick View to inspect it or add it to your cart.':'Try adding a budget like “under ₹70,000” or a use case like “coding laptop”.';
+ body.innerHTML+='<div class="aiMsg">'+reply+'</div>';body.scrollTop=body.scrollHeight;inp.value=''
+}
+function enhanceRender(){
+ let q=document.getElementById('search').value.toLowerCase(),sort=document.getElementById('sort')?.value||'featured';
+ let list=products.filter(x=>(active==='All'||x.cat===active)&&(x.n+' '+x.keys).toLowerCase().includes(q));
+ if(sort==='low')list.sort((a,b)=>a.p-b.p);if(sort==='high')list.sort((a,b)=>b.p-a.p);if(sort==='deal')list.sort((a,b)=>(b.old-b.p)/b.old-(a.old-a.p)/a.old);
+ document.getElementById('products').innerHTML=list.map(x=>'<article class="card"><div class="visual">'+x.icon+'<button class="compareBtn" onclick="toggleCompare('+x.id+')">'+(compare.includes(x.id)?'✓ Comparing':'＋ Compare')+'</button><button class="heart '+(wish.includes(x.id)?'on':'')+'" onclick="toggleWish('+x.id+')">'+(wish.includes(x.id)?'♥':'♡')+'</button></div><div class="info"><div class="tag">'+x.cat+'</div><h3>'+x.n+'</h3><div class="price">'+money(x.p)+' <span class="old">'+money(x.old)+'</span></div><button class="add" onclick="add('+x.id+');markRecent('+x.id+')">Add to cart</button><button class="secondary" style="width:100%;margin-top:7px" onclick="quick('+x.id+');markRecent('+x.id+')">Quick view</button></div></article>').join('')||'<div class="empty" style="grid-column:1/-1">No products match. Try another search.</div>';
+}
+render=enhanceRender;
+const oldQuick=quick;
+quick=function(id){markRecent(id);oldQuick(id)}
+render();updateCount();updateCompare();drawRecent();
 </script>
 </body></html>
