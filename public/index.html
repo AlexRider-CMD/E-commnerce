@@ -149,18 +149,6 @@ function toggleWish(id){wish.includes(id)?wish=wish.filter(x=>x!==id):wish.push(
 function focusSearch(){document.querySelector('#collection').scrollIntoView({behavior:'smooth'});setTimeout(()=>$('search').focus(),500)}
 let activeCat='ALL';
 function renderCats(){const cats=['ALL',...new Set(P.map(p=>p.cat))];$('cats').innerHTML=cats.map(x=>'<button class="catBtn '+(activeCat===x?'active':'')+'" onclick="activeCat='+JSON.stringify(x)+';renderCatalog()">'+x+'</button>').join('')}
-function renderCatalog(){
- let q=($('search')?.value||'').toLowerCase().trim(),r=P.filter(p=>(activeCat==='ALL'||p.cat===activeCat)&&(!q||(p.n+' '+p.cat+' '+p.d).toLowerCase().includes(q)));
- const s=$('sort')?.value||'default';
- if(s==='low')r.sort((a,b)=>a.p-b.p);if(s==='high')r.sort((a,b)=>b.p-a.p);if(s==='name')r.sort((a,b)=>a.n.localeCompare(b.n));
- const pages=Math.max(1,Math.ceil(r.length/PAGE_SIZE));catalogPage=Math.min(catalogPage,pages);
- const start=(catalogPage-1)*PAGE_SIZE,items=r.slice(start,start+PAGE_SIZE);
- $('catalog').innerHTML=items.length?items.map(p=>'<article class="card"><div class="photo"><span class="tag">'+p.cat+'</span><button class="wishBtn" onclick="toggleWish('+p.id+')">'+(wish.includes(p.id)?'♥':'♡')+'</button><img loading="lazy" src="'+p.img+'" alt="'+p.n+'"></div><div class="cardBody"><h3>'+p.n+'</h3><p>'+p.d+'</p><div class="price">'+money(p.p)+'</div><div class="stock">'+(p.stock===0?'OUT OF STOCK':p.stock+' IN STOCK')+'</div><div class="cardActions"><button class="buy" '+(p.stock===0?'disabled':'')+' onclick="openProduct('+p.id+')">VIEW OBJECT →</button></div></div></article>').join(''):'<p>No products found.</p>';
- $('catalogPager')?.remove();
- const pager=document.createElement('div');pager.id='catalogPager';pager.className='catalogPager';
- pager.innerHTML='<span>SHOWING '+(r.length?start+1:0)+'–'+Math.min(start+PAGE_SIZE,r.length)+' OF '+r.length+' PRODUCTS</span><div><button '+(catalogPage===1?'disabled':'')+' onclick="catalogPage--;renderCatalog();document.querySelector(\'#collection\').scrollIntoView({behavior:\'smooth\'})">←</button><b>'+catalogPage+' / '+pages+'</b><button '+(catalogPage===pages?'disabled':'')+' onclick="catalogPage++;renderCatalog();document.querySelector(\'#collection\').scrollIntoView({behavior:\'smooth\'})">→</button></div>';
- $('catalog').after(pager);
-}
 let remoteTotal=0;
 async function syncProducts(){
   try{
@@ -195,10 +183,14 @@ function renderCatalog(){
 }
 
 P.forEach(p=>{if(p.stock==null)p.stock=10;});
-save();
-renderCats();
-renderCatalog();
-syncProducts();
+function bootCatalog(){
+  save();
+  renderCats();
+  renderCatalog();
+  syncProducts();
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bootCatalog);
+else bootCatalog();
 </script>
 
 <script type="module">
