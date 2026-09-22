@@ -29,6 +29,7 @@ async function api(request,env){
   const t=token();await env.DB.prepare("INSERT INTO sessions(token,user_id) VALUES(?,?)").bind(t,user.id).run();
   return json({token:t,user:{id:user.id,name:user.name,email:user.email}});
  }
+ if(path==="/api/auth/check"&&request.method==="GET"){const user=await userFrom(request,env);return user?json({authenticated:true,user:{id:user.id,name:user.name,email:user.email}}):json({authenticated:false})}
  if(path==="/api/me"&&request.method==="GET"){const user=await userFrom(request,env);if(!user)return json({error:"Authentication required"},401);return json({user:{id:user.id,name:user.name,email:user.email}})}
  if(path==="/api/orders"&&request.method==="GET"){const user=await userFrom(request,env);if(!user)return json({error:"Authentication required"},401);const r=await env.DB.prepare("SELECT id,total,status,created_at FROM orders WHERE user_id=? ORDER BY created_at DESC").bind(user.id).all();return json({orders:r.results})}
  if(path==="/api/profile"&&request.method==="GET"){const user=await userFrom(request,env);if(!user)return json({error:"Authentication required"},401);const a=await env.DB.prepare("SELECT * FROM addresses WHERE user_id=? ORDER BY is_default DESC,id").bind(user.id).all();return json({user:{id:user.id,name:user.name,email:user.email},addresses:a.results})}
