@@ -75,7 +75,7 @@ body{background:#080808}
 .card{content-visibility:auto;contain-intrinsic-size:420px}
 .photo img{background:#e5e1da}
 @media(max-width:600px){.catalogPager{gap:15px;align-items:flex-start;flex-direction:column}}
-</style></style>
+</style>
 </head>
 <body>
 <div id="webgl"></div><div class="vignette"></div><div class="grain"></div><div class="scanline"></div><div class="introBadge"><span class="soundDot"></span>NEXORA <b>FLAGSHIP / LIVE</b></div>
@@ -162,6 +162,25 @@ function renderCatalog(){
  $('catalog').after(pager);
 }
 let remoteTotal=0;
+async function syncProducts(){
+  try{
+    const res=await fetch('/api/products',{cache:'no-store'});
+    if(!res.ok) throw new Error('products api '+res.status);
+    const data=await res.json();
+    const rows=Array.isArray(data.products)?data.products:[];
+    const byId=new Map(rows.map(x=>[Number(x.id),x]));
+    P.forEach(p=>{
+      const x=byId.get(Number(p.id));
+      if(x){p.p=Number(x.price);p.stock=Number(x.stock);}
+      else if(p.stock==null){p.stock=10;}
+    });
+    remoteTotal=Number(data.total||rows.length||0);
+  }catch(e){
+    P.forEach(p=>{if(p.stock==null)p.stock=10;});
+  }
+  renderCats();
+  renderCatalog();
+}
 function renderCatalog(){
  let q=($('search')?.value||'').toLowerCase().trim(),r=P.filter(p=>(activeCat==='ALL'||p.cat===activeCat)&&(!q||(p.n+' '+p.cat+' '+p.d).toLowerCase().includes(q)));
  const s=$('sort')?.value||'default';
@@ -175,7 +194,11 @@ function renderCatalog(){
  $('catalog').after(pager);
 }
 
-save();syncProducts();
+P.forEach(p=>{if(p.stock==null)p.stock=10;});
+save();
+renderCats();
+renderCatalog();
+syncProducts();
 </script>
 
 <script type="module">
