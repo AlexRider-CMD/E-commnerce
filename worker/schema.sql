@@ -6,3 +6,9 @@ CREATE TABLE IF NOT EXISTS order_items(id INTEGER PRIMARY KEY AUTOINCREMENT,orde
 INSERT OR IGNORE INTO products(id,name,category,price,stock) VALUES
 (1,'Nova X1 Ultra','Tech',79999,18),(2,'Vertex 14','Computing',64999,12),(3,'AeroSound Pro','Audio',8999,25),(4,'Pulse Watch 4','Wearables',12999,20),
 (5,'Orbit Mechanical','Desk',6999,30),(6,'LumaCam 4K','Creator',18999,10),(7,'Flux Mini','Tech',3499,40),(8,'Arc Pad','Computing',45999,14);
+
+CREATE TABLE IF NOT EXISTS addresses(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,line1 TEXT NOT NULL,line2 TEXT,city TEXT NOT NULL,state TEXT NOT NULL,postal TEXT NOT NULL,country TEXT NOT NULL DEFAULT 'India',is_default INTEGER NOT NULL DEFAULT 0,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS coupons(code TEXT PRIMARY KEY,type TEXT NOT NULL,value INTEGER NOT NULL,min_total INTEGER NOT NULL DEFAULT 0,active INTEGER NOT NULL DEFAULT 1);
+CREATE TABLE IF NOT EXISTS reviews(id TEXT PRIMARY KEY,product_id INTEGER NOT NULL,user_id TEXT NOT NULL,rating INTEGER NOT NULL,comment TEXT,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS recently_viewed(user_id TEXT NOT NULL,product_id INTEGER NOT NULL,viewed_at TEXT DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(user_id,product_id));
+INSERT OR IGNORE INTO coupons(code,type,value,min_total,active) VALUES ('NEXORA10','PERCENT',10,1000,1),('WELCOME500','FLAT',500,5000,1);
