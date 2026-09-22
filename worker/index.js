@@ -17,7 +17,7 @@ async function api(request,env){
  if(path==="/api/auth/signup"&&request.method==="POST"){
   const b=await request.json().catch(()=>({}));const name=String(b.name||"").trim(),email=String(b.email||"").trim().toLowerCase(),password=String(b.password||"");
   if(!name||!email||password.length<6)return json({error:"Name, email and password (6+ chars) are required"},400);
-  if(await env.DB.prepare("SELECT id FROM users WHERE email=?").bind(email).first())return json({error:"Account already exists"},409);
+  const existing=await env.DB.prepare("SELECT id FROM users WHERE lower(trim(email))=lower(trim(?))").bind(email).first();if(existing)return json({error:"An account with this email already exists. Try signing in instead."},409);
   const id=crypto.randomUUID(),hash=await sha256(password),t=token();
   await env.DB.batch([env.DB.prepare("INSERT INTO users(id,name,email,password_hash) VALUES(?,?,?,?)").bind(id,name,email,hash),env.DB.prepare("INSERT INTO sessions(token,user_id) VALUES(?,?)").bind(t,id)]);
   return json({token:t,user:{id,name,email}},201);
