@@ -1,0 +1,18 @@
+import express from "express";
+import cors from "cors";
+import crypto from "crypto";
+const app=express(),PORT=process.env.PORT||3000;
+app.use(cors());app.use(express.json({limit:"1mb"}));
+const products=[{id:1,name:"Nova X1 Ultra",category:"Tech",price:79999,stock:18},{id:2,name:"Vertex 14",category:"Computing",price:64999,stock:12},{id:3,name:"AeroSound Pro",category:"Audio",price:8999,stock:25},{id:4,name:"Pulse Watch 4",category:"Wearables",price:12999,stock:20},{id:5,name:"Orbit Mechanical",category:"Desk",price:6999,stock:30},{id:6,name:"LumaCam 4K",category:"Creator",price:18999,stock:10},{id:7,name:"Flux Mini",category:"Tech",price:3499,stock:40},{id:8,name:"Arc Pad",category:"Computing",price:45999,stock:14}];
+const users=new Map(),sessions=new Map(),orders=new Map();
+const token=()=>crypto.randomBytes(32).toString("hex");
+const hash=p=>crypto.createHash("sha256").update(p).digest("hex");
+function auth(req,res,next){const t=req.headers.authorization?.replace("Bearer ","");if(!t||!sessions.has(t))return res.status(401).json({error:"Authentication required"});req.user=users.get(sessions.get(t));req.token=t;next()}
+app.get("/api/health",(req,res)=>res.json({ok:true,service:"NEXORA API",version:"3.0.0",time:new Date().toISOString()}));
+app.get("/api/products",(req,res)=>{const q=(req.query.q||"").toLowerCase(),cat=(req.query.category||"").toLowerCase();const data=products.filter(p=>(!q||p.name.toLowerCase().includes(q))&&(!cat||p.category.toLowerCase()===cat));res.json({products:data,total:data.length})});
+app.post("/api/auth/signup",(req,res)=>{const {name,email,password}=req.body||{};if(!name||!email||!password||password.length<6)return res.status(400).json({error:"Name, email and password (6+ chars) are required"});const key=email.toLowerCase();if(users.has(key))return res.status(409).json({error:"Account already exists"});const u={id:crypto.randomUUID(),name,email:key,passwordHash:hash(password),createdAt:new Date().toISOString()};users.set(key,u);const t=token();sessions.set(t,key);res.status(201).json({token:t,user:{id:u.id,name:u.name,email:u.email}})});
+app.post("/api/auth/login",(req,res)=>{const {email,password}=req.body||{},u=users.get((email||"").toLowerCase());if(!u||u.passwordHash!==hash(password||""))return res.status(401).json({error:"Invalid email or password"});const t=token();sessions.set(t,u.email);res.json({token:t,user:{id:u.id,name:u.name,email:u.email}})});
+app.get("/api/me",auth,(req,res)=>res.json({user:{id:req.user.id,name:req.user.name,email:req.user.email}}));
+app.post("/api/orders",auth,(req,res)=>{const items=Array.isArray(req.body?.items)?req.body.items:[];if(!items.length)return res.status(400).json({error:"Cart is empty"});let total=0,lines=[];for(const i of items){const p=products.find(x=>x.id===Number(i.id)),q=Math.max(1,Number(i.quantity)||1);if(!p)return res.status(400).json({error:"Invalid product"});if(q>p.stock)return res.status(400).json({error:"Insufficient stock for "+p.name});total+=p.price*q;lines.push({productId:p.id,name:p.name,quantity:q,price:p.price})}const order={id:"NX-"+crypto.randomBytes(4).toString("hex").toUpperCase(),userId:req.user.id,items:lines,total,status:"CONFIRMED",createdAt:new Date().toISOString()};orders.set(order.id,order);res.status(201).json({order})});
+app.get("/api/orders",auth,(req,res)=>res.json({orders:[...orders.values()].filter(o=>o.userId===req.user.id).sort((a,b)=>b.createdAt.localeCompare(a.createdAt))}));
+app.listen(PORT,()=>console.log("NEXORA API listening on "+PORT));
