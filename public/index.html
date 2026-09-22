@@ -75,6 +75,16 @@ body{background:#080808}
 .card{content-visibility:auto;contain-intrinsic-size:420px}
 .photo img{background:#e5e1da}
 @media(max-width:600px){.catalogPager{gap:15px;align-items:flex-start;flex-direction:column}}
+</style><style id="remote-image-wall-v1">
+.remoteImageWall{position:relative;z-index:10;background:#f4f0e7;padding:90px 5vw}
+.remoteImageWallHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:35px}
+.remoteImageWallHead h2{font-size:clamp(48px,7vw,100px);letter-spacing:-7px;line-height:.8;margin:10px 0}
+.remoteImageGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.remoteImage{display:block;aspect-ratio:1/1;overflow:hidden;background:#ddd}
+.remoteImage img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s}
+.remoteImage:hover img{transform:scale(1.06)}
+@media(max-width:900px){.remoteImageGrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.remoteImageWall{padding:70px 4vw}.remoteImageGrid{grid-template-columns:repeat(2,1fr)}.remoteImageWallHead{display:block}}
 </style></style>
 </head>
 <body>
@@ -89,6 +99,7 @@ body{background:#080808}
 
 <section class="reveal" id="collection"><div class="revealHead"><div><span class="eyebrow">THE COLLECTION</span><h2>OBJECTS<br>WORTH<br>ENTERING FOR.</h2></div><p>NEXORA turns a normal product grid into a physical-feeling retail journey. The live catalog remains connected to the Cloudflare-backed commerce API, while the visual layer creates the cinematic storefront.</p></div><div class="shopTools"><input id="search" class="shopSearch" placeholder="Search products..." oninput="renderCatalog()"><div id="cats" class="cats"></div><select id="sort" class="sort" onchange="renderCatalog()"><option value="default">Sort: Featured</option><option value="low">Price: Low → High</option><option value="high">Price: High → Low</option><option value="name">Name A → Z</option></select></div><div id="catalog" class="catalog"></div></section>
 
+<section class="remoteImageWall" id="visuals"><div class="remoteImageWallHead"><div><span class="eyebrow">REMOTE IMAGE COLLECTION</span><h2>1000<br>VISUALS.</h2></div><p>Images are loaded directly from an external image service. They are not stored inside the NEXORA project.</p></div><div id="remoteImageGrid" class="remoteImageGrid"></div></section>
 <section class="black"><div class="manifesto"><span class="eyebrow">THE NEXORA WORLD</span><h2>NOT A WEBSITE.<br>A PLACE.</h2><p>Architecture, light, soundless motion, material and product photography work together to make browsing feel intentional. No cartoon shop. No generic dashboard. A dark luxury flagship built for modern commerce.</p></div><div class="tiles"><div class="tile"><span class="eyebrow">01 / DISCOVERY</span><h3>Walk the aisle.</h3><p>Scroll is the camera. Every section is staged as a physical space rather than a page.</p></div><div class="tile"><span class="eyebrow">02 / PRODUCT</span><h3>Approach the object.</h3><p>Hotspots appear on the displays and open a focused product view.</p></div><div class="tile"><span class="eyebrow">03 / OWNERSHIP</span><h3>Buy without leaving.</h3><p>Account, bag, checkout and order history use the existing backend.</p></div></div></section>
 <section class="reveal" id="journal"><div class="revealHead"><div><span class="eyebrow">NEXORA JOURNAL</span><h2>LESS<br>NOISE.<br>MORE<br>INTENT.</h2></div><p>Premium retail should give the customer room to look. NEXORA uses space, pacing and cinematic transitions to create that feeling.</p></div></section>
 <footer class="footer"><div><b>NEXORA</b><div>THE DIGITAL FLAGSHIP · 2026</div></div><div>Cloud commerce · Accounts · Orders · D1</div></footer>
@@ -281,4 +292,14 @@ function animate(){requestAnimationFrame(animate);cinematic();products.forEach((
 });renderer.render(scene,camera)}
 animate();
 </script>
-</body></html>
+<script>
+(function(){
+ const grid=document.getElementById('remoteImageGrid'); if(!grid)return;
+ const topics=['electronics','technology','headphones','laptop','camera','smartwatch','keyboard','phone','gadgets','workspace'];
+ for(let i=1;i<=1000;i++){
+  const a=document.createElement('a');a.className='remoteImage';a.href='https://loremflickr.com/1200/1200/'+topics[(i-1)%topics.length]+'?lock='+i;a.target='_blank';a.rel='noopener';
+  const img=document.createElement('img');img.loading='lazy';img.decoding='async';img.src=a.href;img.alt='NEXORA visual '+i;
+  a.appendChild(img);grid.appendChild(a);
+ }
+})();
+</script></body></html>
