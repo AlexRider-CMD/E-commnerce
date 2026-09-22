@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050505">
-<meta name="nexora-build" content="NEXORA-LUXURY-UI-BACKGROUND-ONLY-V1"><title>NEXORA — Cinematic Flagship</title>
+<meta name="nexora-build" content="NEXORA-LUXURY-1000-CATALOG-V1"><title>NEXORA — Cinematic Flagship</title>
 <style>
 :root{--white:#f5f1e9;--muted:#aaa59b;--line:#ffffff1a;--gold:#d9b47b;--black:#050505}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#050505;color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;overflow-x:hidden}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
@@ -69,6 +69,12 @@ body{background:#080808}
 .reveal:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(244,240,231,.82),#f4f0e7 18%);pointer-events:none}
 .reveal>*{position:relative}
 .black{background:linear-gradient(180deg,#080808f2,#080808)}
+</style><style id="catalog-performance-v1">
+.catalogPager{display:flex;justify-content:space-between;align-items:center;margin-top:34px;padding-top:22px;border-top:1px solid #0002;font-size:10px;letter-spacing:1.4px}
+.catalogPager>div{display:flex;align-items:center;gap:12px}.catalogPager button{width:42px;height:38px;border:1px solid #0002;background:#fff;border-radius:0}.catalogPager button:disabled{opacity:.25;cursor:not-allowed}.catalogPager b{font-size:10px}
+.card{content-visibility:auto;contain-intrinsic-size:420px}
+.photo img{background:#e5e1da}
+@media(max-width:600px){.catalogPager{gap:15px;align-items:flex-start;flex-direction:column}}
 </style></style>
 </head>
 <body>
@@ -103,7 +109,7 @@ const P=[
 {id:7,n:'Flux Mini',cat:'Tech',p:3499,img:'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1200&q=90',d:'Compact room-filling smart speaker with rich sound.'},
 {id:8,n:'Arc Pad',cat:'Computing',p:45999,img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=90',d:'High-refresh display designed for work, design and play.'}
 ];
-let bag=JSON.parse(localStorage.getItem('nexora-bag')||'[]'),wish=JSON.parse(localStorage.getItem('nexora-wish')||'[]'),token=localStorage.getItem('nexora-token')||'';
+let catalogPage=1;const PAGE_SIZE=36;let bag=JSON.parse(localStorage.getItem('nexora-bag')||'[]'),wish=JSON.parse(localStorage.getItem('nexora-wish')||'[]'),token=localStorage.getItem('nexora-token')||'';
 const money=n=>'₹'+Number(n).toLocaleString('en-IN'),$=id=>document.getElementById(id);
 function save(){localStorage.setItem('nexora-bag',JSON.stringify(bag));localStorage.setItem('nexora-wish',JSON.stringify(wish));$('count').textContent=bag.reduce((a,x)=>a+x.q,0);$('wishCount').textContent=wish.length}
 function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
@@ -116,7 +122,29 @@ function renderCatalog(){
  let q=($('search')?.value||'').toLowerCase().trim(),r=P.filter(p=>(activeCat==='ALL'||p.cat===activeCat)&&(!q||(p.n+' '+p.cat+' '+p.d).toLowerCase().includes(q)));
  const s=$('sort')?.value||'default';
  if(s==='low')r.sort((a,b)=>a.p-b.p);if(s==='high')r.sort((a,b)=>b.p-a.p);if(s==='name')r.sort((a,b)=>a.n.localeCompare(b.n));
- $('catalog').innerHTML=r.length?r.map(p=>'<article class="card"><div class="photo"><span class="tag">'+p.cat+'</span><button class="wishBtn" onclick="toggleWish('+p.id+')">'+(wish.includes(p.id)?'♥':'♡')+'</button><img src="'+p.img+'" alt="'+p.n+'"></div><div class="cardBody"><h3>'+p.n+'</h3><p>'+p.d+'</p><div class="price">'+money(p.p)+'</div><div class="stock">'+(p.stock===0?'OUT OF STOCK':p.stock+' IN STOCK')+'</div><div class="cardActions"><button class="buy" '+(p.stock===0?'disabled':'')+' onclick="openProduct('+p.id+')">VIEW OBJECT →</button></div></div></article>').join(''):'<p>No products found.</p>'
+ const pages=Math.max(1,Math.ceil(r.length/PAGE_SIZE));catalogPage=Math.min(catalogPage,pages);
+ const start=(catalogPage-1)*PAGE_SIZE,items=r.slice(start,start+PAGE_SIZE);
+ $('catalog').innerHTML=items.length?items.map(p=>'<article class="card"><div class="photo"><span class="tag">'+p.cat+'</span><button class="wishBtn" onclick="toggleWish('+p.id+')">'+(wish.includes(p.id)?'♥':'♡')+'</button><img loading="lazy" src="'+p.img+'" alt="'+p.n+'"></div><div class="cardBody"><h3>'+p.n+'</h3><p>'+p.d+'</p><div class="price">'+money(p.p)+'</div><div class="stock">'+(p.stock===0?'OUT OF STOCK':p.stock+' IN STOCK')+'</div><div class="cardActions"><button class="buy" '+(p.stock===0?'disabled':'')+' onclick="openProduct('+p.id+')">VIEW OBJECT →</button></div></div></article>').join(''):'<p>No products found.</p>';
+ $('catalogPager')?.remove();
+ const pager=document.createElement('div');pager.id='catalogPager';pager.className='catalogPager';
+ pager.innerHTML='<span>SHOWING '+(r.length?start+1:0)+'–'+Math.min(start+PAGE_SIZE,r.length)+' OF '+r.length+' PRODUCTS</span><div><button '+(catalogPage===1?'disabled':'')+' onclick="catalogPage--;renderCatalog();document.querySelector(\'#collection\').scrollIntoView({behavior:\'smooth\'})">←</button><b>'+catalogPage+' / '+pages+'</b><button '+(catalogPage===pages?'disabled':'')+' onclick="catalogPage++;renderCatalog();document.querySelector(\'#collection\').scrollIntoView({behavior:\'smooth\'})">→</button></div>';
+ $('catalog').after(pager);
+}
+async function loadMassCatalog(){
+ try{
+  const r=await fetch('https://dummyjson.com/products?limit=0'),d=await r.json();
+  const imported=(d.products||[]).map((x,i)=>({id:10001+i,n:x.title,cat:(x.category||'Collection').replaceAll('-',' '),p:Math.round(Number(x.price||0)*90),stock:Number(x.stock||10),img:x.thumbnail||x.images?.[0]||P[i%P.length].img,d:x.description||'Curated product from the NEXORA demo catalog.',demo:true}));
+  P.push(...imported);
+  const base=imported.length?imported:P.slice();
+  const names=['Edition','Studio','Select','Pro','Essential','Signature','Reserve','Series'];
+  let id=20001;
+  while(P.length<1000){
+   const b=base[(P.length-8)%base.length],v=P.length;
+   P.push({id:id++,n:b.n+' '+names[v%names.length]+' '+(Math.floor(v/base.length)+1),cat:b.cat,p:Math.max(499,Math.round(b.p*(.72+((v%9)/20)))),stock:Math.max(3,(b.stock||10)+v%13),img:b.img,d:b.d+' NEXORA catalogue edition.',demo:true});
+  }
+  renderCats();renderCatalog();
+  toast('NEXORA catalog loaded · '+P.length+' products');
+ }catch(e){renderCats();renderCatalog();toast('Using NEXORA core catalog')}
 }
 function openProduct(id){let p=P.find(x=>x.id===id);$('modalContent').innerHTML='<span class="eyebrow">'+p.cat+' / NEXORA OBJECT</span><button class="wishBtn" onclick="toggleWish('+p.id+');openProduct('+p.id+')">'+(wish.includes(p.id)?'♥':'♡')+'</button><h1>'+p.n+'</h1><img class="detailHero" src="'+p.img+'"><p>'+p.d+'</p><h2>'+money(p.p)+'</h2><div class="stock">'+(p.stock===0?'OUT OF STOCK':p.stock+' available')+'</div><button class="submit" '+(p.stock===0?'disabled':'')+' onclick="add('+p.id+');modalClose()">ADD TO BAG</button>';$('modalOverlay').classList.add('show')}
 function cartOpen(){
@@ -157,7 +185,7 @@ async function login(){let b={email:$('email').value,password:$('pass').value};l
 async function orders(){let r=await fetch('/api/orders',{headers:{Authorization:'Bearer '+token}}),d=await r.json();$('modalContent').innerHTML='<span class="eyebrow">MY ORDERS</span><h1>ORDER HISTORY.</h1>'+(d.orders?.length?d.orders.map(o=>'<div class="line"><b>'+o.id+'</b><p>'+o.status+' · '+money(o.total)+' · '+o.created_at+'</p></div>').join(''):'<p>No orders yet.</p>')}
 function logout(){token='';localStorage.removeItem('nexora-token');modalClose();toast('Signed out')}
 async function syncProducts(){try{const r=await fetch('/api/products');const d=await r.json();if(d.products?.length)d.products.forEach(x=>{const p=P.find(y=>y.id===x.id);if(p){p.stock=x.stock;p.p=x.price}})}catch(e){}renderCats();renderCatalog()}
-save();syncProducts();
+save();syncProducts();loadMassCatalog();
 </script>
 
 <script type="module">
